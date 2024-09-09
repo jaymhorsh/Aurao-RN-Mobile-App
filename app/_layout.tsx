@@ -4,6 +4,7 @@ import {
   Poppins_500Medium,
   Poppins_600SemiBold,
   Poppins_700Bold,
+  Poppins_800ExtraBold,
   useFonts,
 } from "@expo-google-fonts/poppins";
 import { useEffect } from "react";
@@ -17,6 +18,7 @@ const RootLayout = () => {
     Poppins_500Medium,
     Poppins_600SemiBold,
     Poppins_700Bold,
+    Poppins_800ExtraBold,
   });
 
   useEffect(() => {

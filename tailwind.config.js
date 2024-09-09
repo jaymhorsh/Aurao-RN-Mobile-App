@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
@@ -20,15 +21,12 @@ module.exports = {
         },
       },
       fontFamily: {
-        poppins: [
-         
-          "Poppins_400Regular",
-          "Poppins_500Medium",
-          "Poppins_600SemiBold",
-          "Poppins_700Bold",
-         
-         
-        ],
+        popReg: ['Poppins_400Regular'],
+        popMed: ['Poppins_500Medium'],
+        popSemi: ['Poppins_600SemiBold'],
+        popBold: ['Poppins_700Bold'],
+        popExBold: ['Poppins_800ExtraBold'],
+        
       },
     },
   },

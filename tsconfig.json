@@ -15,5 +15,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "%ProgramData%/app/home/explore.jsx"  ]
+, "%ProgramData%/app/home/explore.jsx", "app/(tabs)/_layout.tsx"  ]
 }

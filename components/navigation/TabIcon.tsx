@@ -6,7 +6,7 @@ type TabIconProps = {
   name: string;
   focused: boolean;
 };
- const TabIcon = ({ icon, color, name, focused }: TabIconProps) => {
+export const TabIcon = ({ icon, color, name, focused }: TabIconProps) => {
   return (
     <View className="items-center justify-center gap-2 ">
       <Image
@@ -15,8 +15,12 @@ type TabIconProps = {
         tintColor={color}
         className="w-6 h-6"
       />
-      <Text className={`${focused ? "font-popSemi" : "font-popReg"} text-xs`} style={{color:color}}>{name}</Text>
+      <Text
+        className={`${focused ? "font-popSemi" : "font-popReg"} text-xs `}
+        style={{ color: color }}
+      >
+        {name}
+      </Text>
     </View>
   );
 };
-export default TabIcon

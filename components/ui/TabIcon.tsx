@@ -6,7 +6,7 @@ type TabIconProps = {
   name: string;
   focused: boolean;
 };
-export const TabIcon = ({ icon, color, name, focused }: TabIconProps) => {
+ const TabIcon = ({ icon, color, name, focused }: TabIconProps) => {
   return (
     <View className="items-center justify-center gap-2 ">
       <Image
@@ -19,3 +19,4 @@ export const TabIcon = ({ icon, color, name, focused }: TabIconProps) => {
     </View>
   );
 };
+export default TabIcon

@@ -1,6 +1,5 @@
 import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 
-
 type CustomButtonProps = {
   handlePress: () => void;
   containerStyles?: string;
@@ -8,7 +7,6 @@ type CustomButtonProps = {
   textStyles?: string;
   isLoading?: boolean;
 };
-
 
 const CustomButton = ({
   title,
@@ -26,16 +24,17 @@ const CustomButton = ({
       }`}
       disabled={isLoading}
     >
-      <Text className={`text-primary font-popSemi  text-lg ${textStyles}`}>
-        {title}
-      </Text>
-
+      {!isLoading && (
+        <Text className={`text-primary font-popSemi  text-lg ${textStyles}`}>
+          {title}
+        </Text>
+      )}
       {isLoading && (
         <ActivityIndicator
           animating={isLoading}
           color="#fff"
           size="small"
-          className="ml-2"
+          className="ml-2 justify-center text-center"
         />
       )}
     </TouchableOpacity>

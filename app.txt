@@ -1,0 +1,105 @@
+1. Appwrtie configuration
+2. Create appwirte account 
+3. Add plateform: 
+    app name: Aurao
+    package name: com.jaymhorsh.Aurao
+4. update app.json
+ "ios": {
+      "supportsTablet": true,
+     //   "package":"com.jaymhorsh.aurao"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+    //  "package":"com.jaymhorsh.aurao"
+    },
+5. Create lib folder/appwirte.ts
+//app.ts
+export const appwriteConfig = {
+    endpoint :'https://cloud.appwrite.io/v1',
+    platform: 'com.jaymhorsh.aurao',
+    projectId : '66c5e03a001d086dbbdf'
+}
+
+6. Create database name=(aurao_app)
+export const appwriteConfig = {
+endpoint :'https://cloud.appwrite.io/v1',
+    platform: 'com.jaymhorsh.aurao',
+    projectId : '66c5e03a001d086dbbdf'
+    databaseId" '66e1ce45002d32adab34'
+}
+ 
+7. Create users collection
+export const appwriteConfig = {
+endpoint :'https://cloud.appwrite.io/v1',
+    platform: 'com.jaymhorsh.aurao',
+    projectId : '66c5e03a001d086dbbdf'
+    databaseId" '66e1ce45002d32adab34'
+    userCollectId: '66e1ceaa0024ba284809'
+}
+
+8. Create  videos collection
+export const appwriteConfig = {
+endpoint :'https://cloud.appwrite.io/v1',
+    platform: 'com.jaymhorsh.aurao',
+    projectId : '66c5e03a001d086dbbdf'
+    databaseId" '66e1ce45002d32adab34'
+    userCollectId: '66e1ceaa0024ba284809'
+     videoCollectionId:'66e1cfba00271ed8d5ca'
+}
+
+9. create users attribute 
+username: string 
+email: email
+avatar :url
+accountId
+Total results: 4
+-- Go to settings give users permissions perform crud operation on the collection
+
+Role	Create	Read	Update	Delete	
+Users:           All
+
+10.  create videos attribute 
+title string    
+thumbnail URL
+prompt  stirng
+video URL 
+creator Relationshp-> Many to One => attribute (creator) => Set NULL 
+-- Go to settings give users permissions perform crud operation on the collection
+
+Role	Create	Read	Update	Delete	
+Users:           All
+
+11 Create a Bucket Storage 
+export const appwriteConfig = {
+endpoint :'https://cloud.appwrite.io/v1',
+    platform: 'com.jaymhorsh.aurao',
+    projectId : '66c5e03a001d086dbbdf'
+    databaseId" '66e1ce45002d32adab34'
+    userCollectId: '66e1ceaa0024ba284809'
+    videoCollectionId:'66e1cfba00271ed8d5ca'
+    storageID :'66e1d52e0004b00fdb63'
+}
+--Role	Create	Read	Update	Delete	
+Users:           All			
+Guests:  only Read
+
+--Allowed extensions
+jpg png gif mp4
+
+12 Install appwrite sdk for React Native https://appwrite.io/docs/sdks
+--Installation
+npx expo install react-native-appwrite react-native-url-polyfill
+
+initialize the SDK
+import { Client } from 'react-native-appwrite';
+// Init your React Native SDK
+const client = new Client();
+
+client
+    .setEndpoint('http://localhost/v1') // Your Appwrite Endpoint
+    .setProject('455x34dfkj') // Your project ID
+    .setPlatform('com.example.myappwriteapp') // Your application ID or bundle ID.
+;

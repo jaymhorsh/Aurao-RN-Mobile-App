@@ -4,7 +4,7 @@ export const appwriteConfig = {
   platform: "com.jaymhorsh.aurao",
   projectId: "66c5e03a001d086dbbdf",
   databaseId: "66e1ce45002d32adab34",
-  userCollectId: "66e1ceaa0024ba284809",
+  userCollectionId: "66e1ceaa0024ba284809",
   videoCollectionId: "66e1cfba00271ed8d5ca",
   storageID: "66e1d52e0004b00fdb63",
 };

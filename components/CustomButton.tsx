@@ -6,6 +6,8 @@ type CustomButtonProps = {
   title: string;
   textStyles?: string;
   isLoading?: boolean;
+  width?: number;
+  height?: number;
 };
 
 const CustomButton = ({
@@ -14,28 +16,31 @@ const CustomButton = ({
   containerStyles,
   textStyles,
   isLoading,
+  width,
+  height,
 }: CustomButtonProps) => {
   return (
     <TouchableOpacity
-      onPress={handlePress}
-      activeOpacity={0.7}
-      className={`bg-secondary  rounded-xl min-h-[62px] flex flex-row justify-center items-center ${containerStyles} ${
+      onPress={isLoading ? (null as any) : handlePress}
+      activeOpacity={isLoading ? 1 : 0.7}
+      style={{ width: width || "100%", height: height || 62 } as any}
+      className={`bg-secondary  rounded-xl  flex flex-row justify-center items-center ${containerStyles}
+       ${
         isLoading ? "opacity-50" : ""
       }`}
       disabled={isLoading}
     >
-      {!isLoading && (
-        <Text className={`text-primary font-popSemi  text-lg ${textStyles}`}>
-          {title}
-        </Text>
-      )}
-      {isLoading && (
+      {isLoading ? (
         <ActivityIndicator
           animating={isLoading}
           color="#fff"
-          size="small"
+          size={30}
           className="ml-2 justify-center text-center"
         />
+      ) : (
+        <Text className={`text-primary font-popSemi  text-lg ${textStyles}`}>
+          {title}
+        </Text>
       )}
     </TouchableOpacity>
   );

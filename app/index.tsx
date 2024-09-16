@@ -4,7 +4,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "@/constants";
 import CustomButton from "@/components/CustomButton";
 import { router } from "expo-router";
-import { useState } from "react";
 
 const App = () => {
   return (
@@ -49,8 +48,8 @@ const App = () => {
             />
           </View>
         </View>
-        <StatusBar backgroundColor="#161622" style="light" />
       </ScrollView>
+      <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
   );
 };

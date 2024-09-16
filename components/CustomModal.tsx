@@ -8,7 +8,7 @@ interface Props {
   handleDone: () => void;
   title: string;
   text: string;
-  btnTitle: string;
+  btnTitle?: string;
 }
 const CustomModal = ({
   showModal,

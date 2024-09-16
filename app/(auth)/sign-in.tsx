@@ -1,16 +1,42 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images, icons } from "@/constants";
 import { StatusBar } from "expo-status-bar";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { signIn } from "@/lib/appwrite";
+import CustomErrorModal from "@/components/CustomErrorModal";
+import CustomModal from "@/components/CustomModal";
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
-  const handleSubmit = () => {
-    setLoading(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const handleSubmit = async () => {
+    if (!form.email || !form.password) {
+      Alert.alert("Error", "Please fill in all fields");
+      return;
+    }
+    setLoading(true);
+    try {
+      await signIn({
+        email: form.email,
+        password: form.password,
+      });
+      setShowSuccessModal(true);
+      router.replace("/(tabs)/home");
+      setTimeout(() => {
+        setShowSuccessModal(false);
+      }, 2000);
+    } catch (error: any) {
+      setErrorMessage(error.message);
+      setShowErrorModal(true);
+    } finally {
+      setLoading(false);
+    }
   };
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   return (
@@ -45,6 +71,7 @@ const SignIn = () => {
           <FormField
             label="Password"
             value={form.password}
+            placeholder="Password"
             onChangeText={(password: string) =>
               setForm({
                 ...form,
@@ -74,6 +101,19 @@ const SignIn = () => {
               Sign Up
             </Link>
           </View>
+          <CustomErrorModal
+            showModal={showErrorModal}
+            btnTitle="Close"
+            handleDone={() => setShowErrorModal(false)}
+            text={errorMessage}
+            title="Failed"
+          />
+          <CustomModal
+            showModal={showSuccessModal}
+            handleDone={() => setShowSuccessModal(false)}
+            title="Login Successful"
+            text={"User has been successfuly logged in "}
+          />
         </View>
       </ScrollView>
       <StatusBar backgroundColor="#161622" style="light" />

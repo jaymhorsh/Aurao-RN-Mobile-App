@@ -3,7 +3,7 @@ import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 type CustomButtonProps = {
   handlePress: () => void;
   containerStyles?: string;
-  title: string;
+  title?: string;
   textStyles?: string;
   isLoading?: boolean;
   width?: number;

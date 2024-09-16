@@ -1,4 +1,5 @@
-import { Client, Account, ID } from "react-native-appwrite";
+import { Client, Account, ID, Avatars, Databases } from "react-native-appwrite";
+import { LoginPayload, RegisterPayload } from "./api/auth";
 export const appwriteConfig = {
   endpoint: "https://cloud.appwrite.io/v1",
   platform: "com.jaymhorsh.aurao",
@@ -18,13 +19,52 @@ client
 
 // Register User
 const account = new Account(client);
-export const createUser = () => {
-  account.create(ID.unique(), "me@example.com", "password", "Jane Doe").then(
-    function (response) {
-      console.log(response);
-    },
-    function (error) {
-      console.log(error);
-    }
-  );
+const avatars = new Avatars(client);
+const databases = new Databases(client);
+export const createUser = async ({
+  email,
+  password,
+  username,
+}: RegisterPayload) => {
+  try {
+    const newAccount = await account.create(
+      ID.unique(),
+      email,
+      password,
+      username
+    );
+    if (!newAccount) throw new Error();
+    const avatarUrl = avatars.getInitials(username);
+
+    // call signin function
+    await signIn({ email, password });
+    // Create the sined in user in the database
+    const newUser = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      ID.unique(),
+      {
+        accountId: newAccount.$id,
+        email,
+        username,
+        avatar: avatarUrl,
+      }
+    );
+    return newUser;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error);
+  }
 };
+
+// SignIn Function
+export async function signIn({ email, password }: LoginPayload) {
+  try {
+    // appwrite signIn method
+    const session = await account.createEmailPasswordSession(email, password);
+    return session;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error);
+  }
+}

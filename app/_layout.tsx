@@ -8,6 +8,7 @@ import {
   useFonts,
 } from "@expo-google-fonts/poppins";
 import { useEffect } from "react";
+import GlobalProvider from "@/context/GlobalProvider";
 
 // prevent splashscreen from autohiding before splash is loaded on the screen
 SplashScreen.preventAutoHideAsync(); // Keep splash screen visible
@@ -32,12 +33,14 @@ const RootLayout = () => {
     return null; // Do not render anything until fonts are loaded
   }
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="search/[query]" options={{ headerShown: false }} />
-    </Stack>
+    <GlobalProvider>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="search/[query]" options={{ headerShown: false }} />
+      </Stack>
+    </GlobalProvider>
   );
 };
 export default RootLayout;

@@ -6,15 +6,18 @@ import { StatusBar } from "expo-status-bar";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import { Link, router } from "expo-router";
-import { signIn } from "@/lib/appwrite";
+import { getCurrentUser, signIn } from "@/lib/appwrite";
 import CustomErrorModal from "@/components/CustomErrorModal";
 import CustomModal from "@/components/CustomModal";
+import { useGlobalContext } from "@/context/GlobalProvider";
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const { setUser, setIsLoggedIn } = useGlobalContext();
   const handleSubmit = async () => {
     if (!form.email || !form.password) {
       Alert.alert("Error", "Please fill in all fields");
@@ -26,11 +29,20 @@ const SignIn = () => {
         email: form.email,
         password: form.password,
       });
+      const result = await getCurrentUser();
+      // Set the global context
+      setUser(result);
+      setIsLoggedIn(true);
+
+      // show success modal
       setShowSuccessModal(true);
-      router.replace("/(tabs)/home");
       setTimeout(() => {
+        // close modal after teo seconds
         setShowSuccessModal(false);
       }, 2000);
+      
+      // set to global state using context
+      router.replace("/(tabs)/home");
     } catch (error: any) {
       setErrorMessage(error.message);
       setShowErrorModal(true);

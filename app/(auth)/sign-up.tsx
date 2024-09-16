@@ -10,7 +10,7 @@ import { StatusBar } from "expo-status-bar";
 import { createUser } from "@/lib/appwrite";
 import CustomErrorModal from "@/components/CustomErrorModal";
 import CustomModal from "@/components/CustomModal";
-
+import { useGlobalContext } from "@/context/GlobalProvider";
 const SignUp = () => {
   const [form, setForm] = useState({
     username: "",
@@ -22,6 +22,8 @@ const SignUp = () => {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+const {setUser, setIsLoggedIn}= useGlobalContext()
   const handleSubmit = async () => {
     console.log(form);
     if (
@@ -47,13 +49,15 @@ const SignUp = () => {
         username: form.username,
         password: form.password,
       });
-      console.log(result);
+      // Set the global context
+      setUser(result)
+      setIsLoggedIn(true)
+      // show success modal
       setShowSuccessModal(true);
-
       setTimeout(() => {
+        // close modal after teo seconds
         setShowSuccessModal(false);
       }, 2000);
-      // set to global state using context
       router.replace("/(tabs)/home");
     } catch (error: any) {
       setErrorMessage(error.message);
